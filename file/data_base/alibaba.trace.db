@@ -1,0 +1,8 @@
+2021-03-15 10:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USER" nie istnieje
+Table "USER" not found; SQL statement:
+Select * from user where login = ?  [42102-200]
+2021-03-15 10:52:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "USER" nie istnieje
+Table "USER" not found; SQL statement:
+Select * from user where email = ?  [42102-200]
