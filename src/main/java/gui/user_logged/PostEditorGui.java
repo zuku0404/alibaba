@@ -1,8 +1,8 @@
 package gui.user_logged;
 
-import model.Post;
-import model.User;
-import model.domain.post.PostEditor;
+import controller.PostController;
+import model.dao.Post;
+import model.dao.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,8 +43,8 @@ public class PostEditorGui {
         JButton confirmButton = new JButton("confirm");
         confirmButton.addActionListener(actionEvent -> {
             try {
-                PostEditor postEditor = new PostEditor(newTitle.getText(), content.getText(), post, user);
-                postEditor.editPost();
+                PostController postController = new PostController();
+                postController.editPost( post, user,newTitle.getText(), content.getText());
                 frame.dispose();
 
             } catch (Exception ex) {

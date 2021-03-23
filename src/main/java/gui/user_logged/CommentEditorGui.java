@@ -1,9 +1,9 @@
 package gui.user_logged;
 
-import model.Comment;
-import model.Post;
-import model.User;
-import model.domain.comment.CommentEditor;
+import controller.CommentController;
+import model.dao.Comment;
+import model.dao.Post;
+import model.dao.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class CommentEditorGui {
     private Comment comment;
     private Post post;
 
-    public CommentEditorGui(User user,Comment comment, Post post) {
+    public CommentEditorGui(User user, Comment comment, Post post) {
         this.user = user;
         this.comment = comment;
         this.post = post;
@@ -38,8 +38,8 @@ public class CommentEditorGui {
         JButton confirmButton = new JButton("confirm");
         confirmButton.addActionListener(actionEvent -> {
             try {
-                CommentEditor commentEditor = new CommentEditor(contentText.getText(),comment, user);
-                commentEditor.editComment();
+                CommentController commentController = new CommentController();
+                commentController.editComment(comment, user, contentText.getText());
                 frame.dispose();
 
             } catch (Exception ex) {

@@ -1,14 +1,14 @@
 package data_base.user;
 
 import data_base.ConnectorDB;
-import model.User;
+import model.dao.User;
 
 import java.sql.*;
 
 public class UserCreatorDb {
     public User addUser(User user) {
         String query = "Insert into user (LOGIN, PASSWORD, EMAIL, CREATED) values (?,?,?,?)";
-        PreparedStatement ps = null;
+        PreparedStatement ps;
         try (Connection connection = ConnectorDB.createConnection()) {
             ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getLogin());

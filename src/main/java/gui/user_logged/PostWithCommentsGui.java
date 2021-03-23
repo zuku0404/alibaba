@@ -1,12 +1,10 @@
 package gui.user_logged;
 
-import gui.TablePostWithComments;
-import model.Comment;
-import model.Post;
-import model.User;
-import model.domain.comment.CommentFinder;
-import model.domain.comment.CommentRemover;
-import model.domain.post.PostRemover;
+import controller.CommentController;
+import controller.PostController;
+import model.dao.Comment;
+import model.dao.Post;
+import model.dao.User;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -73,8 +71,8 @@ public class PostWithCommentsGui {
             try {
                 int response = JOptionPane.showConfirmDialog(null, "are you sure you want delete post?", "Confirm", JOptionPane.YES_NO_OPTION);
                 if (response == JOptionPane.YES_OPTION) {
-                    PostRemover postRemover = new PostRemover();
-                    postRemover.deletePost(post,user);
+                    PostController postController = new PostController();
+                    postController.deletePost(post,user);
                     frame.dispose();
                 }
             } catch (Exception ex) {
@@ -105,8 +103,8 @@ public class PostWithCommentsGui {
                 int response = JOptionPane.showConfirmDialog(null, "are you sure you want delete post?", "Confirm", JOptionPane.YES_NO_OPTION);
                 if (response == JOptionPane.YES_OPTION) {
                     Comment actualComment = getActualComment();
-                    CommentRemover commentRemover = new CommentRemover(actualComment,user);
-                    commentRemover.deleteComment();
+                    CommentController commentController = new CommentController();
+                    commentController.deleteComment(actualComment,user);
                     frame.dispose();
                 }
             } catch (Exception ex) {
@@ -114,21 +112,32 @@ public class PostWithCommentsGui {
             }
         });
 
-        mainPanel.add(firstPanel);
-        mainPanel.add(secondPanel);
-        mainPanel.add(fourthPanel);
-        mainPanel.add(thirdPanel);
-        mainPanel.add(fifthPanel);
 
         firstPanel.add(titleLabel);
         firstPanel.add(scrollTitle);
         secondPanel.add(contentLabel);
         secondPanel.add(scrollContent);
-        fourthPanel.add(editPostButton);
-        fourthPanel.add(deletePostButton);
-        fifthPanel.add(createCommentButton);
-        fifthPanel.add(editCommentButton);
-        fifthPanel.add(deleteCommentButton);
+
+        if(user!=null) {
+            mainPanel.add(firstPanel);
+            mainPanel.add(secondPanel);
+            mainPanel.add(fourthPanel);
+            mainPanel.add(thirdPanel);
+            mainPanel.add(fifthPanel);
+
+
+            fourthPanel.add(editPostButton);
+            fourthPanel.add(deletePostButton);
+            fifthPanel.add(createCommentButton);
+            fifthPanel.add(editCommentButton);
+            fifthPanel.add(deleteCommentButton);
+        }
+        else {
+            mainPanel.add(firstPanel);
+            mainPanel.add(secondPanel);
+            mainPanel.add(thirdPanel);
+            mainPanel.add(fourthPanel);
+        }
         frame.setContentPane(mainPanel);
         frame.pack();
         frame.setVisible(true);
@@ -137,7 +146,7 @@ public class PostWithCommentsGui {
         int indexSelectedRow = table.getSelectedRow();
         TableModel model = table.getModel();
         LocalDateTime commentDataCreated = LocalDateTime.parse(model.getValueAt(indexSelectedRow, 1).toString());
-        CommentFinder commentFinder = new CommentFinder(post);
-        return commentFinder.findCommentByDate(commentDataCreated).orElseThrow();
+        CommentController commentController = new CommentController();
+        return commentController.findCommentByDate(commentDataCreated).orElseThrow();
     }
 }

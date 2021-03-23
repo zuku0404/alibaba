@@ -1,8 +1,8 @@
 package gui.user_logged;
 
-import model.Post;
-import model.User;
-import model.domain.comment.CommentCreator;
+import controller.CommentController;
+import model.dao.Post;
+import model.dao.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,8 +33,8 @@ public class CommentCreatorGui {
 
         JButton createButton = new JButton("create comment");
         createButton.addActionListener(actionEvent -> {
-            CommentCreator commentCreator = new CommentCreator(post,user, contentText.getText());
-            commentCreator.createComment();
+            CommentController commentController = new CommentController();
+            commentController.createComment(user,post, contentText.getText());
             frame.dispose();
         });
         JButton closeButton = new JButton("close");

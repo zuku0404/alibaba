@@ -1,10 +1,10 @@
 
 D
 java:S2115")Add password protection to this database.(âÎêåıÿÿÿÿ
-U
-java:S1118":Add a private constructor to hide the implicit public one.(µŒ…‰ûÿÿÿÿ
 [
 java:S1124
 "EReorder the modifiers to comply with the Java Language Specification.(ªá…ë
+U
+java:S1118":Add a private constructor to hide the implicit public one.(µŒ…‰ûÿÿÿÿ
 H
 java:S4925"-Remove this "Class.forName()", it is useless.(İˆùÿÿÿÿ

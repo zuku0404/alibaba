@@ -1,14 +1,14 @@
 package gui.account;
 
-import gui.user_logged_out.BoardGui;
+import controller.UserController;
+import gui.user_logged.BoardGuiUser;
 import gui.Gui;
-import model.domain.UserCreator;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class RegisterGui implements Gui {
-    private final BoardGui boardGui = new BoardGui();
+
     public void show() {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
@@ -28,9 +28,10 @@ public class RegisterGui implements Gui {
         JButton confirmDataButton = new JButton("confirm");
         confirmDataButton.addActionListener(actionEvent -> {
             try {
-                UserCreator userCreator = new UserCreator(loginText.getText(), passwordText.getText(), emailText.getText());
-                userCreator.createUser();
+                UserController userController = new UserController();
+                userController.createUser(loginText.getText(), passwordText.getText(), emailText.getText());
                 JOptionPane.showMessageDialog(null, "Account has been created");
+                BoardGuiUser boardGui = new BoardGuiUser(null);
                 boardGui.show();
                 frame.dispose();
             } catch (Exception ex) {
@@ -40,6 +41,7 @@ public class RegisterGui implements Gui {
 
         JButton backButton = new JButton("back");
         backButton.addActionListener(actionEvent -> {
+            BoardGuiUser boardGui = new BoardGuiUser(null);
             boardGui.show();
             frame.dispose();
         });

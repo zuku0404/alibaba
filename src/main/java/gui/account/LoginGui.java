@@ -1,10 +1,9 @@
 package gui.account;
 
-import gui.user_logged_out.BoardGui;
+import controller.AccountController;
 import gui.user_logged.BoardGuiUser;
 import gui.Gui;
-import model.domain.Logger;
-import model.User;
+import model.dao.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,8 +26,8 @@ public class LoginGui implements Gui {
         JButton logInButton = new JButton("log in");
         logInButton.addActionListener(actionEvent -> {
             try {
-                Logger logger = new Logger(loginText.getText(),passwordText.getText());
-                User user = logger.logIntoAccount();
+                AccountController accountController = new AccountController();
+                User user = accountController.logIntoAccount(loginText.getText(), passwordText.getText());
                 BoardGuiUser boardGuiUser = new BoardGuiUser(user);
                 boardGuiUser.show();
                 frame.dispose();
@@ -39,7 +38,7 @@ public class LoginGui implements Gui {
 
         JButton backButton = new JButton("back");
         backButton.addActionListener(actionEvent -> {
-            BoardGui boardGui = new BoardGui();
+            BoardGuiUser boardGui = new BoardGuiUser(null);
             boardGui.show();
             frame.dispose();
         });

@@ -1,7 +1,7 @@
 package gui.user_logged;
 
-import model.User;
-import model.domain.post.PostCreator;
+import controller.PostController;
+import model.dao.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,8 +35,8 @@ public class PostCreatorGui {
         JButton createButton = new JButton("create post");
         createButton.addActionListener(actionEvent -> {
             try {
-                PostCreator postCreator = new PostCreator(user, titleText.getText(), contentText.getText());
-                postCreator.createPost();
+                PostController postController = new PostController();
+                postController.createPost(user, titleText.getText(), contentText.getText());
                 frame.dispose();
             }
             catch (Exception ex){

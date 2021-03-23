@@ -1,8 +1,9 @@
-import gui.user_logged_out.BoardGui;
+import gui.user_logged.BoardGuiUser;
+
 
 public class Main {
     public static void main(String[] args) {
-        BoardGui boardGui = new BoardGui();
+        BoardGuiUser boardGui = new BoardGuiUser(null);
         boardGui.show();
 //        LoginGui loginGui = new LoginGui();
 //        loginGui.show();

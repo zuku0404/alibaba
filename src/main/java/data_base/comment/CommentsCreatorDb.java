@@ -1,7 +1,7 @@
 package data_base.comment;
 
 import data_base.ConnectorDB;
-import model.Comment;
+import model.dao.Comment;
 
 import java.sql.*;
 

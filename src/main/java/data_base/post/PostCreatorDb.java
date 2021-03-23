@@ -1,7 +1,7 @@
 package data_base.post;
 
 import data_base.ConnectorDB;
-import model.Post;
+import model.dao.Post;
 
 import java.sql.*;
 

@@ -1,10 +1,10 @@
 package gui.user_logged;
 
-import gui.user_logged_out.BoardGui;
-import gui.TablePostsPanel;
-import model.Post;
-import model.User;
-import model.domain.post.PostFinder;
+import controller.PostController;
+import gui.account.LoginGui;
+import gui.account.RegisterGui;
+import model.dao.Post;
+import model.dao.User;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -41,10 +41,11 @@ public class BoardGuiUser {
                     TableModel model = table.getModel();
                     String title = model.getValueAt(indexRow, 0).toString();
 
-                    PostFinder postFinder = new PostFinder();
-                    Post post = postFinder.findPostByTitle(title).orElseThrow();
-                    PostWithCommentsGui postWithCommentsGui = new PostWithCommentsGui(post,user);
-                    postWithCommentsGui.show();
+                    PostController postController = new PostController();
+                    Post post = postController.findPostByTitle(title).orElseThrow();
+
+                        PostWithCommentsGui postWithCommentsGui = new PostWithCommentsGui(post, user);
+                        postWithCommentsGui.show();
                 }
             }
         });
@@ -53,7 +54,6 @@ public class BoardGuiUser {
         table.setFillsViewportHeight(true);
         firstPanel.add(scrollPane);
 
-        JLabel userLabel = new JLabel("User: " + user.getLogin());
 
         JButton createPost = new JButton("create post");
         createPost.addActionListener(actionEvent -> {
@@ -71,8 +71,8 @@ public class BoardGuiUser {
             if (response == JOptionPane.YES_OPTION) {
                 user = null;
                 frame.dispose();
-                BoardGui boardGui = new BoardGui();
-                boardGui.show();
+                BoardGuiUser boardGuiUser = new BoardGuiUser(user);
+                boardGuiUser.show();
             }
         });
 
@@ -83,13 +83,39 @@ public class BoardGuiUser {
             boardGuiUser.show();
         });
 
-        mainPanel.add(secondPanel);
-        mainPanel.add(thirdPanel);
-        mainPanel.add(firstPanel);
-        secondPanel.add(userLabel);
-        thirdPanel.add(createPost);
-        thirdPanel.add(logOutButton);
-        thirdPanel.add(refreshButton);
+        JButton logInButton = new JButton("log in");
+        logInButton.addActionListener(actionEvent -> {
+            LoginGui loginGui = new LoginGui();
+            loginGui.show();
+            frame.dispose();
+        });
+
+        JButton signUpButton = new JButton("sign up");
+        signUpButton.addActionListener(actionEvent -> {
+            RegisterGui registerGui = new RegisterGui();
+            registerGui.show();
+            frame.dispose();
+        });
+
+
+
+        if(user!=null){
+            JLabel userLabel = new JLabel("User: " + user.getLogin());
+            mainPanel.add(secondPanel);
+            mainPanel.add(thirdPanel);
+            mainPanel.add(firstPanel);
+            secondPanel.add(userLabel);
+            thirdPanel.add(createPost);
+            thirdPanel.add(logOutButton);
+            thirdPanel.add(refreshButton);
+        }
+        else {
+            mainPanel.add(firstPanel);
+            mainPanel.add(thirdPanel);
+            thirdPanel.add(logInButton);
+            thirdPanel.add(signUpButton);
+        }
+
         frame.getContentPane().add(mainPanel);
         frame.pack();
         frame.setVisible(true);
