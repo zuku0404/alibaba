@@ -1,7 +1,7 @@
 package gui.account;
 
-import controller.UserController;
-import gui.user_logged.BoardGuiUser;
+import service.impl.UserServiceImpl;
+import gui.main_view.BoardGuiUser;
 import gui.Gui;
 
 import javax.swing.*;
@@ -28,8 +28,8 @@ public class RegisterGui implements Gui {
         JButton confirmDataButton = new JButton("confirm");
         confirmDataButton.addActionListener(actionEvent -> {
             try {
-                UserController userController = new UserController();
-                userController.createUser(loginText.getText(), passwordText.getText(), emailText.getText());
+                UserServiceImpl userServiceImpl = new UserServiceImpl();
+                userServiceImpl.createUser(loginText.getText(), passwordText.getText(), emailText.getText());
                 JOptionPane.showMessageDialog(null, "Account has been created");
                 BoardGuiUser boardGui = new BoardGuiUser(null);
                 boardGui.show();

@@ -1,7 +1,7 @@
 package gui.account;
 
-import controller.AccountController;
-import gui.user_logged.BoardGuiUser;
+import service.impl.AccountService;
+import gui.main_view.BoardGuiUser;
 import gui.Gui;
 import model.dao.User;
 
@@ -26,8 +26,8 @@ public class LoginGui implements Gui {
         JButton logInButton = new JButton("log in");
         logInButton.addActionListener(actionEvent -> {
             try {
-                AccountController accountController = new AccountController();
-                User user = accountController.logIntoAccount(loginText.getText(), passwordText.getText());
+                AccountService accountService = new AccountService();
+                User user = accountService.logIntoAccount(loginText.getText(), passwordText.getText());
                 BoardGuiUser boardGuiUser = new BoardGuiUser(user);
                 boardGuiUser.show();
                 frame.dispose();
